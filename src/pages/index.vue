@@ -1,15 +1,41 @@
-<script setup>
-import { onMounted } from 'vue';
+<script>
+import { } from 'vue';
 import { currentTheme, initTheme, switchTheme } from '@/composables/theme.js';
+import mixin1 from '@/components/mixins/mixin1';
 
-onMounted(() => {
-  initTheme();
-});
+export default {
+  mixins: [mixin1],
+  data() {
+    return {
+      testMessage: 0,
+      currentTheme,
+      switchTheme,
+    };
+  },
+  computed: {
+    myVal() {
+      return this.customFunctionThatIsNotMinified(true);
+    },
+  },
+  mounted() {
+    initTheme();
+  },
+  methods: {
+    anotherCustomFunctionThatIsNotMinified() {
+      return 'test';
+    },
+  },
+};
+
 </script>
 
 <template>
   <header class="absolute inset-x-0 top-0">
     <div class="container mx-auto flex justify-end p-4">
+      {{ testMessage }}
+      {{ myVal }}
+      {{ anotherCustomFunctionThatIsNotMinified() }}
+
       <button
         class="overflow-hidden p-2"
         @click="switchTheme()"
@@ -55,7 +81,7 @@ onMounted(() => {
     </div>
   </header>
 
-  <main class="mx-auto flex h-screen max-w-3xl flex-col items-center justify-center py-16 px-4">
+  <main class="mx-auto flex h-screen max-w-3xl flex-col items-center justify-center px-4 py-16">
     <h1 class="pb-20 text-center text-6xl text-gray-700 transition-colors dark:text-gray-100">
       Vue.js starter template
     </h1>
@@ -65,7 +91,7 @@ onMounted(() => {
         target="_blank"
         rel="noopener"
         href="https://open.vscode.dev/lecoueyl/vue3-template"
-        class="inline-flex items-center space-x-1 rounded-md bg-indigo-600 py-4 px-6 font-medium text-indigo-50 shadow-xl transition duration-300 hover:bg-indigo-700 hover:shadow-md"
+        class="inline-flex items-center space-x-1 rounded-md bg-indigo-600 px-6 py-4 font-medium text-indigo-50 shadow-xl transition duration-300 hover:bg-indigo-700 hover:shadow-md"
       >
         <svg
           viewBox="0 0 24 24"
@@ -83,7 +109,7 @@ onMounted(() => {
         target="_blank"
         rel="noopener"
         href="https://github.com/lecoueyl/vue3-template"
-        class="inline-flex items-center space-x-1 rounded-md bg-indigo-600 py-4 px-6 font-medium text-indigo-50 shadow-xl transition duration-300 hover:bg-indigo-700 hover:shadow-md"
+        class="inline-flex items-center space-x-1 rounded-md bg-indigo-600 px-6 py-4 font-medium text-indigo-50 shadow-xl transition duration-300 hover:bg-indigo-700 hover:shadow-md"
       >
         <svg
           viewBox="0 0 24 24"
